@@ -1,0 +1,69 @@
+<div class="layout-row layout-xs-column">
+  <div class="layout-column flex-xs flex-100">
+    {{#paper-card as |card|}}
+      {{#card.title as |title|}}
+
+        {{#title.text as |text|}}
+          {{#text.headline}}Diapers{{/text.headline}}
+        {{/title.text}}
+
+      {{/card.title}}
+
+      {{#card.content}}
+
+        {{#paper-list}}
+
+          {{#each diapers as |diaper|}}
+            {{#paper-item class="md-2-line" as |controls|}}
+              <div class="md-list-item-text">
+                <h3>{{diaper.model}}</h3>
+                <p>{{diaper.description}}</p>
+              </div>
+
+              <div class="md-secondary-container">
+                {{#controls.button secondary=true iconButton=true onClick=(action "edit" diaper)}}
+                  {{paper-icon "edit"}}
+                {{/controls.button}}
+                {{#controls.button secondary=true iconButton=true onClick=(action "delete" diaper)}}
+                  {{paper-icon "delete"}}
+                {{/controls.button}}
+              </div>
+            {{/paper-item}}
+            {{#paper-list}}
+              {{#each diaper.stock as |stock|}}
+                {{#paper-item class="md-2-line justify-start" as |stockControls|}}
+                  <hbox fit align="center" justify="start">
+                    <box fit>
+                      {{stock.size.name}} - {{stock.stock}}
+                    </box>
+
+                    <box fit>
+                      {{#paper-button onClick=(action 'buy' diaper stock)}}
+                        Buy
+                      {{/paper-button}}
+                    </box>
+                    {{#if stock.zeroedInMinutes}}
+                      <box fit>
+                        Zeroed in {{stock.zeroedInMinutes}} minutes
+                      </box>
+                    {{/if}}
+                    {{#if stock.totalOrders}}
+                      <box fit>
+                        Total orders: {{stock.totalOrders}}
+                      </box>
+                    {{/if}}
+                  </hbox>
+                {{/paper-item}}
+              {{/each}}
+            {{/paper-list}}
+          {{/each}}
+        {{/paper-list}}
+
+      {{/card.content}}
+    {{/paper-card}}
+  </div>
+</div>
+
+{{#paper-button primary=true raised=true float=true fab=true class="md-float" onClick=(action 'redirectToCreate')}}
+  {{paper-icon 'add'}}
+{{/paper-button}}

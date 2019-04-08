@@ -3,6 +3,7 @@
 module.exports = function(environment) {
   let ENV = {
     modulePrefix: 'frontend',
+    podModulePrefix: 'frontend/pods',
     environment,
     rootURL: '/',
     locationType: 'auto',
@@ -18,8 +19,8 @@ module.exports = function(environment) {
     },
 
     APP: {
-      // Here you can pass flags/options to your application instance
-      // when it is created
+      host: 'http://localhost:6001',
+      namespace: 'api/v1'
     }
   };
 
@@ -44,7 +45,7 @@ module.exports = function(environment) {
   }
 
   if (environment === 'production') {
-    // here you can enable a production-specific feature
+    ENV.APP.host = 'http://52.89.98.67';
   }
 
   return ENV;

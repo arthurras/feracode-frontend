@@ -1,0 +1,39 @@
+<div class="layout-row layout-xs-column">
+  <div class="layout-column flex-xs flex-100">
+    {{#paper-card as |card|}}
+      {{#card.title as |title|}}
+
+        {{#title.text as |text|}}
+          {{#text.headline}}Diapers{{/text.headline}}
+        {{/title.text}}
+
+      {{/card.title}}
+
+      {{#card.content}}
+
+        {{paper-input label="Model" value=diaper.model onChange=(action (mut diaper.model)) class="md-block flex"}}
+
+        {{paper-input label="Description" value=diaper.description onChange=(action (mut diaper.description)) class="md-block flex"}}
+
+        {{#each diaper.stock as |stock|}}
+          {{ui-size-autocomplete value=stock.sizeName sizeName=stock.sizeName selectedSize=stock.size afterAddSize=(action 'afterAddSize' stock)}}
+
+          {{paper-input label="Stock" value=stock.stock onChange=(action (mut stock.stock)) class="md-block flex"}}
+        {{/each}}
+
+        <div class="md-block">
+          {{#paper-button onClick=(action 'addStock')}}
+            {{paper-icon 'add'}} Size Stock
+          {{/paper-button}}
+        </div>
+
+        <div class="md-block">
+          {{#paper-button primary=true raised=true onClick=(action "save")}}
+            Save
+          {{/paper-button}}
+        </div>
+
+      {{/card.content}}
+    {{/paper-card}}
+  </div>
+</div>

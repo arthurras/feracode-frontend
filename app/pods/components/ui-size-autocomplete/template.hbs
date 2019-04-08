@@ -1,0 +1,22 @@
+
+{{#paper-autocomplete
+  disabled=firstDisabled
+  onCreate=(action "addSize")
+  options=items
+  allowClear=true
+  defaultHighlighted=(if enableDefaultHighlighted highlightFirstMatch)
+  searchText=(readonly sizeSearchText)
+  onSearchTextChange=(action (mut sizeSearchText))
+  selected=selectedSize
+  search=(action "searchSizes")
+  searchField="name"
+  labelPath="name"
+  placeholder="Select a Size..."
+  loadingMessage="Searching sizes..."
+  noMatchesMessage="Oops this size doesn't exist. Create a new size?"
+  onSelectionChange=(action (mut selectedSize)) as |size autocomplete|}}
+  {{paper-autocomplete-highlight
+    label=size.name
+    searchText=autocomplete.searchText
+    flags="i"}}
+{{/paper-autocomplete}}
