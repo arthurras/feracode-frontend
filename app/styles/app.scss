@@ -6,6 +6,10 @@ body {
   background: #F3F3F3;
 }
 
+.d-flex {
+  display: flex;
+}
+
 button.md-float {
   bottom: 12px;
   right: 12px;
@@ -31,3 +35,5 @@ button.md-float {
 }
 
 @import 'diaper-list';
+@import 'flash-messages';
+@import 'animate';

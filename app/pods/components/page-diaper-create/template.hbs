@@ -21,15 +21,9 @@
           {{paper-input label="Stock" value=stock.stock onChange=(action (mut stock.stock)) class="md-block flex"}}
         {{/each}}
 
-        <div class="md-block">
+        <div class="d-flex justify-end md-block">
           {{#paper-button onClick=(action 'addStock')}}
             {{paper-icon 'add'}} Size Stock
-          {{/paper-button}}
-        </div>
-
-        <div class="md-block">
-          {{#paper-button primary=true raised=true onClick=(action "save")}}
-            Save
           {{/paper-button}}
         </div>
 
@@ -37,3 +31,7 @@
     {{/paper-card}}
   </div>
 </div>
+
+{{#paper-button class="md-float" fab=true primary=true raised=true onClick=(action "save")}}
+  {{paper-icon 'done-all'}}
+{{/paper-button}}

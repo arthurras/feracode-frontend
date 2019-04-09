@@ -5,6 +5,7 @@ import { inject as service } from '@ember/service';
 export default Component.extend({
 
   store: service(),
+  flashMessages: service(),
 
   actions: {
 
@@ -17,9 +18,7 @@ export default Component.extend({
     },
 
     delete(diaper) {
-      diaper.destroyRecord().then(() => {
-        diaper.deleteRecord();
-      });
+      diaper.destroyRecord().then(() => {});
     },
 
     buy(diaper, stock) {
@@ -28,13 +27,13 @@ export default Component.extend({
       set(order, 'stock', stock);
       set(order, 'diaper', diaper);
 
-      order.save().then((result) => {
+      order.save().then(() => {
         stock.reload();
       }, (err) => {
         let { errors } = err;
-
+        
         if (get(errors, 'length')) {
-          console.log(get(errors, 'firstObject.detail'));
+          get(this, 'flashMessages').danger(get(errors, 'firstObject.detail'));
         }
       });
     }

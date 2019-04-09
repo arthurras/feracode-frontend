@@ -21,6 +21,12 @@ module.exports = function(environment) {
     APP: {
       host: 'http://localhost:6001',
       namespace: 'api/v1'
+    },
+
+    flashMessageDefaults: {
+      timeout: 4000,
+      extendedTimeout: 300,
+      priority: 200,
     }
   };
 

@@ -1,0 +1,28 @@
+.alert {
+  border-radius: 4px;
+  bottom: 16px;
+  color: white;
+  padding: 8px 12px;
+  position: fixed;
+  right: 16px;
+  z-index: 100;
+
+  -webkit-animation-duration: 300ms;
+  animation-duration: 300ms;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+
+  animation-name: fadeIn;
+
+  &.exiting {
+    animation-name: fadeOut;
+  }
+
+  &.alert-success {
+    background-color: paper-color('green', '500');
+  }
+
+  &.alert-danger {
+    background-color: paper-color('red', '500');
+  }
+}
