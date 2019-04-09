@@ -45,7 +45,7 @@ module.exports = function(environment) {
   }
 
   if (environment === 'production') {
-    ENV.APP.host = 'http://52.89.98.67';
+    ENV.APP.host = 'http://arthurras.ddns.net';
   }
 
   return ENV;

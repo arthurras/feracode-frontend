@@ -1,68 +1,52 @@
-<div class="layout-row layout-xs-column">
-  <div class="layout-column flex-xs flex-100">
-    {{#paper-card as |card|}}
-      {{#card.title as |title|}}
+{{#paper-list}}
 
-        {{#title.text as |text|}}
-          {{#text.headline}}Diapers{{/text.headline}}
-        {{/title.text}}
+  {{#each diapers as |diaper|}}
+    {{#if diaper.id}}
+      <div class="diaper-list-item">
+        {{#paper-item class="md-2-line" as |controls|}}
+          <div class="md-list-item-text">
+            <h3>{{diaper.model}}</h3>
+            <p>{{diaper.description}}</p>
+          </div>
 
-      {{/card.title}}
+          <div class="md-secondary-container">
+            {{#controls.button secondary=true iconButton=true onClick=(action "edit" diaper)}}
+              {{paper-icon "edit"}}
+            {{/controls.button}}
+            {{#controls.button secondary=true iconButton=true onClick=(action "delete" diaper)}}
+              {{paper-icon "delete"}}
+            {{/controls.button}}
+          </div>
+        {{/paper-item}}
 
-      {{#card.content}}
 
         {{#paper-list}}
-
-          {{#each diapers as |diaper|}}
-            {{#paper-item class="md-2-line" as |controls|}}
-              <div class="md-list-item-text">
-                <h3>{{diaper.model}}</h3>
-                <p>{{diaper.description}}</p>
+          {{#if diaper.stock.length}}
+            {{#paper-subheader}}Stock{{/paper-subheader}}
+          {{/if}}
+          {{#each diaper.stock as |stock|}}
+            {{#paper-item class="md-3-line justify-start" as |stockControls|}}
+              <div class="md-list-item-text" fit justify="center" align="start">
+                <h3>{{stock.size.name}} - {{stock.stock}}</h3>
+                {{#if stock.totalOrders}}
+                  <h4>Total orders: {{stock.totalOrders}}</h4>
+                {{/if}}
+                {{#if stock.zeroedInMinutes}}
+                  <p>Zeroed in {{stock.zeroedInMinutes}} minutes</p>
+                {{/if}}
               </div>
-
               <div class="md-secondary-container">
-                {{#controls.button secondary=true iconButton=true onClick=(action "edit" diaper)}}
-                  {{paper-icon "edit"}}
-                {{/controls.button}}
-                {{#controls.button secondary=true iconButton=true onClick=(action "delete" diaper)}}
-                  {{paper-icon "delete"}}
-                {{/controls.button}}
+                {{#stockControls.button onClick=(action 'buy' diaper stock)}}
+                  Buy
+                {{/stockControls.button}}
               </div>
             {{/paper-item}}
-            {{#paper-list}}
-              {{#each diaper.stock as |stock|}}
-                {{#paper-item class="md-2-line justify-start" as |stockControls|}}
-                  <hbox fit align="center" justify="start">
-                    <box fit>
-                      {{stock.size.name}} - {{stock.stock}}
-                    </box>
-
-                    <box fit>
-                      {{#paper-button onClick=(action 'buy' diaper stock)}}
-                        Buy
-                      {{/paper-button}}
-                    </box>
-                    {{#if stock.zeroedInMinutes}}
-                      <box fit>
-                        Zeroed in {{stock.zeroedInMinutes}} minutes
-                      </box>
-                    {{/if}}
-                    {{#if stock.totalOrders}}
-                      <box fit>
-                        Total orders: {{stock.totalOrders}}
-                      </box>
-                    {{/if}}
-                  </hbox>
-                {{/paper-item}}
-              {{/each}}
-            {{/paper-list}}
           {{/each}}
         {{/paper-list}}
-
-      {{/card.content}}
-    {{/paper-card}}
-  </div>
-</div>
+      </div>
+    {{/if}}
+  {{/each}}
+{{/paper-list}}
 
 {{#paper-button primary=true raised=true float=true fab=true class="md-float" onClick=(action 'redirectToCreate')}}
   {{paper-icon 'add'}}

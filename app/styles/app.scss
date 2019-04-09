@@ -1,4 +1,10 @@
+$primary: 'teal';
+
 @import 'ember-paper';
+
+body {
+  background: #F3F3F3;
+}
 
 button.md-float {
   bottom: 12px;
@@ -23,3 +29,5 @@ button.md-float {
     justify-content: flex-start;
   }
 }
+
+@import 'diaper-list';
